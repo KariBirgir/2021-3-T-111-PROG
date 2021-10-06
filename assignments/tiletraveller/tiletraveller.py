@@ -4,6 +4,20 @@ EAST = 'e'
 SOUTH = 's'
 WEST = 'w'
 
+
+def main():
+    # The main program starts here
+    victory = False
+    row = 1
+    col = 1
+
+    while not victory:
+        valid_directions = find_directions(col, row)
+        print_directions(valid_directions)
+        victory, col, row = play_one_move(col, row, valid_directions)
+    print("Victory!")
+
+
 def move(direction, col, row):
     ''' Returns updated col, row given the direction '''
     if direction == NORTH:
@@ -71,13 +85,6 @@ def play_one_move(col, row, valid_directions):
         victory = is_victory(col, row)
     return victory, col, row
 
-# The main program starts here
-victory = False
-row = 1
-col = 1
 
-while not victory:
-    valid_directions = find_directions(col, row)
-    print_directions(valid_directions)
-    victory, col, row = play_one_move(col, row, valid_directions)
-print("Victory!")
+if __name__ == "__main__":
+    main()
