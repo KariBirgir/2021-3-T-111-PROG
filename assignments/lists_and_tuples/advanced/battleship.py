@@ -12,6 +12,19 @@ SHIPS_AND_SIZES = (
 )
 
 
+def main():
+    fleet = gather_fleet_positions()
+    while something_is_still_afloat(fleet):
+        coordinate = ask_where_to_attack()
+        ship = get_ship_at(coordinate, fleet)
+        if ship:
+            report_hit(ship, coordinate)
+        else:
+            report_miss()
+
+    print("The entire fleet has been sunk")
+
+
 def get_occupied_tiles(coordinate: str, orientation: str, size: int) -> list:
     row = coordinate[0].upper()
     column = int(coordinate[1:])
@@ -86,13 +99,5 @@ def report_miss():
     print("Miss")
 
 
-fleet = gather_fleet_positions()
-while something_is_still_afloat(fleet):
-    coordinate = ask_where_to_attack()
-    ship = get_ship_at(coordinate, fleet)
-    if ship:
-        report_hit(ship, coordinate)
-    else:
-        report_miss()
-
-print("The entire fleet has been sunk")
+if __name__ == "__main__":
+    main()

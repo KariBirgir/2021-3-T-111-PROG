@@ -5,6 +5,17 @@
 # - then we can move the one remaining (and largest) disc from the first pillar to the third pillar
 # - finally we get the n-1 discs from the second pillar to the third pillar (via recursion)
 
+
+def main():
+    number_of_discs = int(input("How many discs are on the left-most pillar? "))
+    initial_state = ""
+    for disc in range(number_of_discs, 0, -1):
+        initial_state += str(disc)
+    initial_state += "|||"
+    print(initial_state)
+    move_many(how_many=number_of_discs, from_pillar=1, to_pillar=3, state=initial_state)
+
+
 def find_index_of_nth_occurrence(sequence, element_to_find, occurrence):
     """ Returns the location of the n-th occurrence of an element within a sequence """
     seen_so_far = 0
@@ -59,10 +70,5 @@ def move_many(how_many, from_pillar, to_pillar, state):
     return state
 
 
-number_of_discs = int(input("How many discs are on the left-most pillar? "))
-initial_state = ""
-for disc in range(number_of_discs, 0, -1):
-    initial_state += str(disc)
-initial_state += "|||"
-print(initial_state)
-move_many(how_many=number_of_discs, from_pillar=1, to_pillar=3, state=initial_state)
+if __name__ == "__main__":
+    main()
