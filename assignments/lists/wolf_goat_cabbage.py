@@ -44,10 +44,8 @@ def get_user_choice(left_side, right_side, is_left):
 
 def valid_user_choice(left_side, right_side, is_left, choice):
     return (
-        is_left
-        and choice in left_side
-        or not is_left
-        and choice in right_side
+        is_left and choice in left_side
+        or not is_left and choice in right_side
         or choice == "e"
     )
 
