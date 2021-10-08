@@ -25,18 +25,6 @@ def main():
     print("The entire fleet has been sunk")
 
 
-def get_occupied_tiles(coordinate: str, orientation: str, size: int) -> list:
-    row = coordinate[0].upper()
-    column = int(coordinate[1:])
-    if orientation.lower() == "horizontal":
-        return [f"{row}{c}" for c in range(column, column + size)]
-    elif orientation.lower() == "vertical":
-        start_index = ord(row)
-        return [f"{chr(r)}{column}" for r in range(start_index, start_index + size)]
-    else:
-        raise ValueError(orientation + " is not a recognized orientation")
-
-
 def gather_fleet_positions() -> list:
     print(
         "Specify the location of each ship in your fleet by providing the top/left coordinate and orientation."
@@ -51,12 +39,16 @@ def gather_fleet_positions() -> list:
     return positions
 
 
-def is_afloat(ship: tuple) -> bool:
-    name, occupied_tiles, hits = ship
-    for tile in occupied_tiles:
-        if tile not in hits:
-            return True
-    return False
+def get_occupied_tiles(coordinate: str, orientation: str, size: int) -> list:
+    row = coordinate[0].upper()
+    column = int(coordinate[1:])
+    if orientation.lower() == "horizontal":
+        return [f"{row}{c}" for c in range(column, column + size)]
+    elif orientation.lower() == "vertical":
+        start_index = ord(row)
+        return [f"{chr(r)}{column}" for r in range(start_index, start_index + size)]
+    else:
+        raise ValueError(orientation + " is not a recognized orientation")
 
 
 def something_is_still_afloat(fleet: list) -> bool:
@@ -66,9 +58,24 @@ def something_is_still_afloat(fleet: list) -> bool:
     return False
 
 
+def is_afloat(ship: tuple) -> bool:
+    name, occupied_tiles, hits = ship
+    for tile in occupied_tiles:
+        if tile not in hits:
+            return True
+    return False
+
+
 def ask_where_to_attack() -> str:
     coordinate = input("Where to attack: ")
     return coordinate.strip().upper()
+
+
+def get_ship_at(coordinate: str, fleet: list):
+    for ship in fleet:
+        if hit_test(ship, coordinate):
+            return ship
+    return None
 
 
 def hit_test(ship: tuple, coordinate: str) -> bool:
@@ -77,13 +84,6 @@ def hit_test(ship: tuple, coordinate: str) -> bool:
         if coordinate == tile:
             return True
     return False
-
-
-def get_ship_at(coordinate: str, fleet: list):
-    for ship in fleet:
-        if hit_test(ship, coordinate):
-            return ship
-    return None
 
 
 def report_hit(ship: tuple, coordinate: str):

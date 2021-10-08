@@ -16,6 +16,34 @@ def main():
     move_many(how_many=number_of_discs, from_pillar=1, to_pillar=3, state=initial_state)
 
 
+def move_many(how_many, from_pillar, to_pillar, state):
+    """ Moves the specified number of discs from one pillar to another and returns the updated state representation.
+
+    Prints the state for every move made.
+    """
+    if how_many > 0:
+        # To find the auxiliary pillar, we note that they are numbered 1, 2 and 3
+        # and an easy way to find which one is missing is to use the fact
+        # that the sum is 1+2+3=6.
+        # So, no matter which two pillars we are given,
+        # we can find the remaining one by subtracting the two given ones from 6.
+        auxiliary_pillar = 6 - from_pillar - to_pillar
+        state = move_many(how_many - 1, from_pillar, auxiliary_pillar, state)
+        state = move_one(from_pillar, to_pillar, state)
+        print(state)
+        state = move_many(how_many - 1, auxiliary_pillar, to_pillar, state)
+    return state
+
+
+def move_one(from_pillar, to_pillar, state):
+    """ Moves the topmost disc from one pillar to another and returns the updated state representation. """
+    where_to_remove = find_index_of_nth_occurrence(sequence=state, element_to_find="|", occurrence=from_pillar) - 1
+    state, disc_to_move = remove_at(sequence=state, index_to_remove=where_to_remove)
+    where_to_insert = find_index_of_nth_occurrence(sequence=state, element_to_find="|", occurrence=to_pillar)
+    state = insert_at(sequence=state, index=where_to_insert, element=disc_to_move)
+    return state
+
+
 def find_index_of_nth_occurrence(sequence, element_to_find, occurrence):
     """ Returns the location of the n-th occurrence of an element within a sequence """
     seen_so_far = 0
@@ -40,34 +68,6 @@ def remove_at(sequence, index_to_remove):
 def insert_at(sequence, index, element):
     """ Inserts an element at the specified location in a sequence and returns the updated sequence. """
     return sequence[:index] + element + sequence[index:]
-
-
-def move_one(from_pillar, to_pillar, state):
-    """ Moves the topmost disc from one pillar to another and returns the updated state representation. """
-    where_to_remove = find_index_of_nth_occurrence(sequence=state, element_to_find="|", occurrence=from_pillar) - 1
-    state, disc_to_move = remove_at(sequence=state, index_to_remove=where_to_remove)
-    where_to_insert = find_index_of_nth_occurrence(sequence=state, element_to_find="|", occurrence=to_pillar)
-    state = insert_at(sequence=state, index=where_to_insert, element=disc_to_move)
-    return state
-
-
-def move_many(how_many, from_pillar, to_pillar, state):
-    """ Moves the specified number of discs from one pillar to another and returns the updated state representation. 
-    
-    Prints the state for every move made.
-    """
-    if how_many > 0:
-        # To find the auxiliary pillar, we note that they are numbered 1, 2 and 3
-        # and an easy way to find which one is missing is to use the fact
-        # that the sum is 1+2+3=6.
-        # So, no matter which two pillars we are given,
-        # we can find the remaining one by subtracting the two given ones from 6.
-        auxiliary_pillar = 6 - from_pillar - to_pillar
-        state = move_many(how_many - 1, from_pillar, auxiliary_pillar, state)
-        state = move_one(from_pillar, to_pillar, state)
-        print(state)
-        state = move_many(how_many - 1, auxiliary_pillar, to_pillar, state)
-    return state
 
 
 if __name__ == "__main__":
