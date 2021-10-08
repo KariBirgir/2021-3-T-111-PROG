@@ -6,15 +6,6 @@ def main():
     file_b = open(file_name_b, "r")
     print(join_text_files(file_a, file_b))
 
-def read_all_lines(text_file):
-    text = text_file.read()
-    return text.splitlines()
-
-def safe_index(lines, index):
-    try:
-        return lines[index]
-    except IndexError:
-        return None
 
 def join_text_files(file_a, file_b):
     result = ""
@@ -29,6 +20,19 @@ def join_text_files(file_a, file_b):
             if line is not None:
                 result += line + "\n"
     return result.rstrip("\n")  # Get rid of trailing newline
+
+
+def read_all_lines(text_file):
+    text = text_file.read()
+    return text.splitlines()
+
+
+def safe_index(lines, index):
+    try:
+        return lines[index]
+    except IndexError:
+        return None
+
 
 if __name__ == "__main__":
     main()

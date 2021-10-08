@@ -1,31 +1,21 @@
-def rotate_text_clockwise(text):
-    """ Rotates text 90 degrees clockwise, adding spaces as needed for multi-line strings """
-    lines = text.splitlines()
-    max_length = 0
-    for line in lines:
-        if len(line) > max_length:
-            max_length = len(line)
-    rotated_text = ""
-    for character_index in range(max_length):
-        for line in reversed(lines):
-            if len(line) > character_index:
-                character_to_add = line[character_index]
-            else:
-                character_to_add = " "
-            rotated_text += character_to_add
-        rotated_text += "\n"
-    return rotated_text.rstrip("\n")
+
+PIECE = """X
+XXX"""
 
 
-def determine_clearance(text, max_width):
-    min_clearance_left = max_width
-    min_clearance_right = max_width
-    for line in text.splitlines():
-        clearance_left = len(line) - len(line.lstrip(" "))
-        min_clearance_left = min(clearance_left, min_clearance_left)
-        clearance_right = max_width - len(line)
-        min_clearance_right = min(clearance_right, min_clearance_right)
-    return min_clearance_left, min_clearance_right
+def main():
+    piece = PIECE
+    indentation = 0
+    action = ""
+    while action != "q":
+        print(change_indentation(piece, indentation))
+        action = input("(r)ight, (l)eft, (t)urn, (q)uit: ").lower()
+        if action == "r":
+            indentation += 1
+        elif action == "l":
+            indentation -= 1
+        elif action == "t":
+            piece = rotate_text_clockwise(piece)
 
 
 def change_indentation(text, spaces):
@@ -68,16 +58,35 @@ def change_indentation(text, spaces):
     return result
 
 
-piece = """X
-XXX"""
-indentation = 0
-action = ""
-while action != "q":
-    print(change_indentation(piece, indentation))
-    action = input("(r)ight, (l)eft, (t)urn, (q)uit: ").lower()
-    if action == "r":
-        indentation += 1
-    elif action == "l":
-        indentation -= 1
-    elif action == "t":
-        piece = rotate_text_clockwise(piece)
+def determine_clearance(text, max_width):
+    min_clearance_left = max_width
+    min_clearance_right = max_width
+    for line in text.splitlines():
+        clearance_left = len(line) - len(line.lstrip(" "))
+        min_clearance_left = min(clearance_left, min_clearance_left)
+        clearance_right = max_width - len(line)
+        min_clearance_right = min(clearance_right, min_clearance_right)
+    return min_clearance_left, min_clearance_right
+
+
+def rotate_text_clockwise(text):
+    """ Rotates text 90 degrees clockwise, adding spaces as needed for multi-line strings """
+    lines = text.splitlines()
+    max_length = 0
+    for line in lines:
+        if len(line) > max_length:
+            max_length = len(line)
+    rotated_text = ""
+    for character_index in range(max_length):
+        for line in reversed(lines):
+            if len(line) > character_index:
+                character_to_add = line[character_index]
+            else:
+                character_to_add = " "
+            rotated_text += character_to_add
+        rotated_text += "\n"
+    return rotated_text.rstrip("\n")
+
+
+if __name__ == "__main__":
+    main()
