@@ -1,13 +1,3 @@
-def determine_clearance(text, max_width):
-    min_clearance_left = max_width
-    min_clearance_right = max_width
-    for line in text.splitlines():
-        clearance_left = len(line) - len(line.lstrip(" "))
-        min_clearance_left = min(clearance_left, min_clearance_left)
-        clearance_right = max_width - len(line)
-        min_clearance_right = min(clearance_right, min_clearance_right)
-    return min_clearance_left, min_clearance_right
-
 
 def change_indentation(text, spaces):
     """Adds or removes leading spaces to/from every line in the supplied string.
@@ -47,3 +37,14 @@ def change_indentation(text, spaces):
     # Remove the last newline character which got appended in the last iteration of the loop
     result = result.rstrip("\n")
     return result
+
+
+def determine_clearance(text, max_width):
+    min_clearance_left = max_width
+    min_clearance_right = max_width
+    for line in text.splitlines():
+        clearance_left = len(line) - len(line.lstrip(" "))
+        min_clearance_left = min(clearance_left, min_clearance_left)
+        clearance_right = max_width - len(line)
+        min_clearance_right = min(clearance_right, min_clearance_right)
+    return min_clearance_left, min_clearance_right

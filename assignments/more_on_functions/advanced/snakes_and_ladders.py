@@ -89,20 +89,18 @@ def play_one_turn(
     return determine_next_player(current_player, roll)
 
 
+def roll_die() -> int:
+    """ Simulate a roll of a 6-sided die """
+    return random.randint(1, 6)
+
+
 def move_player(player_positions: list, current_player: int, roll: int) -> None:
     """ Advance player according to roll whilst ensuring that player doesn't exceed square 100 """
     player_positions[current_player] = min(player_positions[current_player] + roll, 100)
 
 
-def determine_next_player(current_player: int, roll: int) -> int:
-    """ Alternates the player index between 0 and 1 if die roll was less than 6 """
-    other_player = 1 - current_player
-    return other_player if roll < 6 else current_player
-
-
-def roll_die() -> int:
-    """ Simulate a roll of a 6-sided die """
-    return random.randint(1, 6)
+def show_roll_and_new_position(roll: int, position: int, player: str) -> None:
+    print(f"{player} rolled {roll} and is now at square {position}")
 
 
 def adjust_position_if_on_snake(
@@ -116,6 +114,12 @@ def adjust_position_if_on_snake(
             return
 
 
+def show_snake_message(player_name: str, destination_square: int) -> None:
+    print(
+        f"Darn! A bloody snake brought {player_name} down to square {destination_square}"
+    )
+
+
 def adjust_position_if_on_ladder(
     player_positions: list, player_names: tuple, current_player: int, ladders: list
 ) -> None:
@@ -127,18 +131,14 @@ def adjust_position_if_on_ladder(
             return
 
 
-def show_roll_and_new_position(roll: int, position: int, player: str) -> None:
-    print(f"{player} rolled {roll} and is now at square {position}")
-
-
-def show_snake_message(player_name: str, destination_square: int) -> None:
-    print(
-        f"Darn! A bloody snake brought {player_name} down to square {destination_square}"
-    )
-
-
 def show_ladder_message(player_name: str, destination_square: int) -> None:
     print(f"Splendid! {player_name} climbed a ladder up to square {destination_square}")
+
+
+def determine_next_player(current_player: int, roll: int) -> int:
+    """ Alternates the player index between 0 and 1 if die roll was less than 6 """
+    other_player = 1 - current_player
+    return other_player if roll < 6 else current_player
 
 
 def declare_winner(winner: str) -> None:

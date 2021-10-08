@@ -18,36 +18,6 @@ def main():
             piece = rotate_text_clockwise(piece)
 
 
-def rotate_text_clockwise(text):
-    """ Rotates text 90 degrees clockwise, adding spaces as needed for multi-line strings """
-    lines = text.splitlines()
-    max_length = 0
-    for line in lines:
-        if len(line) > max_length:
-            max_length = len(line)
-    rotated_text = ""
-    for character_index in range(max_length):
-        for line in reversed(lines):
-            if len(line) > character_index:
-                character_to_add = line[character_index]
-            else:
-                character_to_add = " "
-            rotated_text += character_to_add
-        rotated_text += "\n"
-    return rotated_text.rstrip("\n")
-
-
-def determine_clearance(text, max_width):
-    min_clearance_left = max_width
-    min_clearance_right = max_width
-    for line in text.splitlines():
-        clearance_left = len(line) - len(line.lstrip(" "))
-        min_clearance_left = min(clearance_left, min_clearance_left)
-        clearance_right = max_width - len(line)
-        min_clearance_right = min(clearance_right, min_clearance_right)
-    return min_clearance_left, min_clearance_right
-
-
 def change_indentation(text, spaces):
     """Adds or removes leading spaces to/from every line in the supplied string.
 
@@ -86,6 +56,36 @@ def change_indentation(text, spaces):
     # Remove the last newline character which got appended in the last iteration of the loop
     result = result.rstrip("\n")
     return result
+
+
+def determine_clearance(text, max_width):
+    min_clearance_left = max_width
+    min_clearance_right = max_width
+    for line in text.splitlines():
+        clearance_left = len(line) - len(line.lstrip(" "))
+        min_clearance_left = min(clearance_left, min_clearance_left)
+        clearance_right = max_width - len(line)
+        min_clearance_right = min(clearance_right, min_clearance_right)
+    return min_clearance_left, min_clearance_right
+
+
+def rotate_text_clockwise(text):
+    """ Rotates text 90 degrees clockwise, adding spaces as needed for multi-line strings """
+    lines = text.splitlines()
+    max_length = 0
+    for line in lines:
+        if len(line) > max_length:
+            max_length = len(line)
+    rotated_text = ""
+    for character_index in range(max_length):
+        for line in reversed(lines):
+            if len(line) > character_index:
+                character_to_add = line[character_index]
+            else:
+                character_to_add = " "
+            rotated_text += character_to_add
+        rotated_text += "\n"
+    return rotated_text.rstrip("\n")
 
 
 if __name__ == "__main__":
