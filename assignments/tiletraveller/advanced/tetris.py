@@ -1,3 +1,23 @@
+
+PIECE = """X
+XXX"""
+
+
+def main():
+    piece = PIECE
+    indentation = 0
+    action = ""
+    while action != "q":
+        print(change_indentation(piece, indentation))
+        action = input("(r)ight, (l)eft, (t)urn, (q)uit: ").lower()
+        if action == "r":
+            indentation += 1
+        elif action == "l":
+            indentation -= 1
+        elif action == "t":
+            piece = rotate_text_clockwise(piece)
+
+
 def rotate_text_clockwise(text):
     """ Rotates text 90 degrees clockwise, adding spaces as needed for multi-line strings """
     lines = text.splitlines()
@@ -68,16 +88,5 @@ def change_indentation(text, spaces):
     return result
 
 
-piece = """X
-XXX"""
-indentation = 0
-action = ""
-while action != "q":
-    print(change_indentation(piece, indentation))
-    action = input("(r)ight, (l)eft, (t)urn, (q)uit: ").lower()
-    if action == "r":
-        indentation += 1
-    elif action == "l":
-        indentation -= 1
-    elif action == "t":
-        piece = rotate_text_clockwise(piece)
+if __name__ == "__main__":
+    main()
