@@ -1,0 +1,6 @@
+student1@ru.is 4 1 4 4 3 2 2 
+student2@ru.is 3 2 3 3 2 3 1 
+student3@ru.is 2 1 5 2 1 4 2
+student4@ru.is 1 2 3 3 3 3 1
+student5@ru.is 0 2 4 1 1 4 2
+student6@ru.is 4 0 5 2 2 1 2

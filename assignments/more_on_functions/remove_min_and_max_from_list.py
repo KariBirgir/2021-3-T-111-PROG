@@ -10,17 +10,6 @@ def main():
     print(f"{c_list = }")
 
 
-def find_min_and_max_index(a_list):
-    min_index = 0
-    max_index = 0
-    for i in range(1, len(a_list)):
-        if a_list[min_index] > a_list[i]:
-            min_index = i
-        if a_list[max_index] < a_list[i]:
-            max_index = i
-    return min_index, max_index
-
-
 def remove_min_and_max(a_list):
     min_index, max_index = find_min_and_max_index(a_list)
     del a_list[min_index]
@@ -34,6 +23,17 @@ def remove_min_and_max_2(a_list):
     return [
         a_list[i] for i in range(len(a_list)) if (i != min_index and i != max_index)
     ]
+
+
+def find_min_and_max_index(a_list):
+    min_index = 0
+    max_index = 0
+    for i in range(1, len(a_list)):
+        if a_list[min_index] > a_list[i]:
+            min_index = i
+        if a_list[max_index] < a_list[i]:
+            max_index = i
+    return min_index, max_index
 
 
 if __name__ == "__main__":

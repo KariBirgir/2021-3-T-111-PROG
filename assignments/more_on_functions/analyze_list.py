@@ -27,6 +27,15 @@ def get_data():
         return []
 
 
+def unique_elements(a_list):
+    """Returns a new list containing the unique elements in a_list"""
+    result = []
+    for elem in a_list:
+        if not elem in result:
+            result.append(elem)
+    return result
+
+
 def is_prime(n):
     """Returns True if the given positive number is prime and False otherwise"""
     if n == 1:
@@ -38,6 +47,13 @@ def is_prime(n):
         return True
 
 
+def print_lists(input_list, sorted_list, composite_list):
+    """Prints the given lists"""
+    print("Input list:", input_list)
+    print("Sorted list: ", sorted_list)
+    print("Composite list: ", composite_list)
+
+
 def stats_from_list(int_list):
     """Returns statistics from the given list: min, max and average"""
     max_int = max(int_list)
@@ -46,25 +62,10 @@ def stats_from_list(int_list):
     return (min_int, max_int, average)
 
 
-def print_lists(input_list, sorted_list, composite_list):
-    """Prints the given lists"""
-    print("Input list:", input_list)
-    print("Sorted list: ", sorted_list)
-    print("Composite list: ", composite_list)
-
-
 def print_stats(min_int, max_int, average):
     """Prints the statistics"""
     print("Min: {:d}, Max: {:d}, Average: {:.2f}".format(min_int, max_int, average))
 
-
-def unique_elements(a_list):
-    """Returns a new list containing the unique elements in a_list"""
-    result = []
-    for elem in a_list:
-        if not elem in result:
-            result.append(elem)
-    return result
 
 if __name__ == "__main__":
     main()

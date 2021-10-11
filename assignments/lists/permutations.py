@@ -14,12 +14,12 @@ def has_property(number):
     return True
 
 
-def is_permutation_of_same_digits(num1, num2):
-    return sorted_digits(num1) == sorted_digits(num2)
-
-
 def number_of_digits(number):
     return len(str(number))
+
+
+def is_permutation_of_same_digits(num1, num2):
+    return sorted_digits(num1) == sorted_digits(num2)
 
 
 def sorted_digits(number):
