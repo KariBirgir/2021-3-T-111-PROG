@@ -16,40 +16,20 @@ def main():
         play_again = again.lower() == "y"
 
 
-def move(direction, col, row):
-    """Returns updated col, row given the direction"""
-    if direction == NORTH:
-        row += 1
-    elif direction == SOUTH:
-        row -= 1
-    elif direction == EAST:
-        col += 1
-    elif direction == WEST:
-        col -= 1
-    return (col, row)
+def play():
+    """Plays the game"""
+    victory = False
+    row = 1
+    col = 1
+    total_coins = 0
 
-
-def is_victory(col, row):
-    """Return true is player is in the victory cell"""
-    return col == 3 and row == 1  # (3,1)
-
-
-def print_directions(directions_str):
-    print("You can travel: ", end="")
-    first = True
-    for ch in directions_str:
-        if not first:
-            print(" or ", end="")
-        if ch == NORTH:
-            print("(N)orth", end="")
-        elif ch == EAST:
-            print("(E)ast", end="")
-        elif ch == SOUTH:
-            print("(S)outh", end="")
-        elif ch == WEST:
-            print("(W)est", end="")
-        first = False
-    print(".")
+    while not victory:
+        valid_directions = find_directions(col, row)
+        print_directions(valid_directions)
+        victory, col, row, total_coins = play_one_move(
+            col, row, valid_directions, total_coins
+        )
+    print("Victory! Total coins {}.".format(total_coins))
 
 
 def find_directions(col, row):
@@ -73,16 +53,22 @@ def find_directions(col, row):
     return valid_directions
 
 
-def get_coins(col, row):
-    if (col, row) in CELLS_WITH_COINS:
-        answer = input("Pull a lever (y/n): ")
-        if answer.lower() == "y":
-            return 1
-    return 0
-
-
-def print_coins(coins, total_coins):
-    print("You received {:d} coin, your total is now {:d}.".format(coins, total_coins))
+def print_directions(directions_str):
+    print("You can travel: ", end="")
+    first = True
+    for ch in directions_str:
+        if not first:
+            print(" or ", end="")
+        if ch == NORTH:
+            print("(N)orth", end="")
+        elif ch == EAST:
+            print("(E)ast", end="")
+        elif ch == SOUTH:
+            print("(S)outh", end="")
+        elif ch == WEST:
+            print("(W)est", end="")
+        first = False
+    print(".")
 
 
 def play_one_move(col, row, valid_directions, total_coins):
@@ -104,20 +90,34 @@ def play_one_move(col, row, valid_directions, total_coins):
     return victory, col, row, total_coins
 
 
-def play():
-    """Plays the game"""
-    victory = False
-    row = 1
-    col = 1
-    total_coins = 0
+def move(direction, col, row):
+    """Returns updated col, row given the direction"""
+    if direction == NORTH:
+        row += 1
+    elif direction == SOUTH:
+        row -= 1
+    elif direction == EAST:
+        col += 1
+    elif direction == WEST:
+        col -= 1
+    return (col, row)
 
-    while not victory:
-        valid_directions = find_directions(col, row)
-        print_directions(valid_directions)
-        victory, col, row, total_coins = play_one_move(
-            col, row, valid_directions, total_coins
-        )
-    print("Victory! Total coins {}.".format(total_coins))
+
+def is_victory(col, row):
+    """Return true is player is in the victory cell"""
+    return col == 3 and row == 1  # (3,1)
+
+
+def get_coins(col, row):
+    if (col, row) in CELLS_WITH_COINS:
+        answer = input("Pull a lever (y/n): ")
+        if answer.lower() == "y":
+            return 1
+    return 0
+
+
+def print_coins(coins, total_coins):
+    print("You received {:d} coin, your total is now {:d}.".format(coins, total_coins))
 
 
 if __name__ == "__main__":
