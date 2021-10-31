@@ -49,5 +49,6 @@ def main(predator_breed_time=6, predator_starve_time=3, initial_predators=10, pr
         isle.clear_all_moved_flags()
         print(isle)
 
-#main(initial_predators=2, initial_prey=5, ticks=3, size=5)
-main()
+if __name__ == "__main__":
+    #main(initial_predators=2, initial_prey=5, ticks=3, size=5)
+    main()
