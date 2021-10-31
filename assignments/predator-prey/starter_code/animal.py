@@ -32,10 +32,11 @@ class Animal():
         for dx, dy in offset:
             x = self._x + dx
             y = self._y + dy
-            # We either find a specific animal or empy cell
-            if type(self._island.animal(x,y)) == type_looking_for:
-                result = (x,y)
-                break  # Quit immediately if a location is found 
+            if self._island.inside(x,y):  # Then the location is inside the island
+                # We either find a specific animal or empy cell
+                if type(self._island.animal(x,y)) == type_looking_for:
+                    result = (x,y)
+                    break  # Quit immediately if a location is found 
         return result
 
     def clock_tick(self):  
