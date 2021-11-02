@@ -1,8 +1,11 @@
 from island import Island
 
+import random
+
 class Animal():
     NOT_FOUND = 0
     breed_time = 10  # class varible. Not really used because the subclasses have their own breed times
+    MAX_OFFSPRING = 1
 
     @classmethod
     def set_breed_time(cls, breed_time):     # A class method for setting the starting breed time for all the instances
@@ -12,6 +15,7 @@ class Animal():
         '''Initializes the animal and its position'''
         # Variables starting with a single underscore are 'protected', accessible in subclasses
         # Variables starting with two underscores are 'private', not accessible outside the class
+        MAX_OFFSPRING = 2
         self._island = island  
         self._x = x    # value on x-axis, 
         self._y = y    # value on y-axis, 
@@ -27,6 +31,7 @@ class Animal():
         neighbor location that presently has an object of the specified type. 
         Returns NOT_FOUND if no such location exists'''
         offset = [(-1,1), (0,1), (1,1), (-1,0), (1,0), (-1,-1), (0,-1), (1,-1)]
+        random.shuffle(offset)
         result = Animal.NOT_FOUND
 
         for dx, dy in offset:
@@ -57,7 +62,7 @@ class Animal():
                 self._x, self._y = location    # x and y coordinates
                 self._island.register(self)    # Register the animal on the island
                 self._moved = True             # Now it has moved
-        
+
     def breed(self):
         '''Breed a new Animal.  If there is room in one of the neigboring locations,
         place the new animal there.'''
